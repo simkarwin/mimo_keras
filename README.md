@@ -21,7 +21,7 @@ from mimo_keras import MIMODataGenerator
 
 def load_and_preprocess_matrix(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
-    matrix = np.load(parameters,get('matrix_path'))
+    matrix = np.load(parameters.get('matrix_path'))
     if len(np.shape(matrix)) == 2:
         matrix = np.expand_dims(matrix, axis=-1)
     matrix = (matrix - np.mean(matrix)) / np.std(matrix)
