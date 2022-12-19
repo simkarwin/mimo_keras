@@ -1,19 +1,15 @@
-# Custome Data-Generator for multiple-input multiple-output model in TF-keras
-Develop your own keras Data-Generator in TF-Keras to load and batch every data type with any format from a massive dataset in computers with limited main or GPU memory...
-mimo-keras is a package that enabled feeding model with any number and any type of inputs and outpuuts.
+#  Custom Data-Generator for the multiple-input multiple-output model in TF-keras
+Develop your own keras Data-Generator in TF-Keras to load and batch every data type with any format from a massive dataset in computers with limited main or GPU memory... mimo-keras is a package that enables feeding models with any format and any number of inputs and outputs.
 
+MIMO-keras — Never use keras imagedatagenerator to load data in batch
+Do you ever use image_data_generator() or load_form_directory() to load and feed your deep model in keras? Of course, you do. mimo-keras makes data loader very simple even for multiple input/output models or data with formats that are not supported by default in keras.
 
-### MIMO-keras — Never use keras imagedatagenerator to load data in batch
+#### mimo-keras is like image_data_generator().load_from_directory(), but better:
 
-Do you ever use `image_data_generator()` or `load_form_directory()` to load and feed your deep model in keras? Of course you
-do. MIMO-keras, makes dataloader very simple even for multiple input/outut model or data with formats that are not suppprted by .
-
-`mimo-keras` is like `image_data_generator().load_from_directory()`, but better:
-
-  1. It can load data with every format.
-  2. You can write your own data loader function.
-  3. You can use your custom preprocessing pipline without limitation.
-  4. supporting pandas, images and other formats at the same time without needign to define new data-generator for each input or output.
+1. supports pandas, images and other formats in a generator without needing to define a new data generator for each input or output.
+2. It can load data in every format.
+3. You can write your own data loader function.
+4. You can use your custom preprocessing pipeline without limitation.
 
 
 ```python
@@ -28,18 +24,18 @@ def load_and_preprocess_matrix(feature_values, feature_names):
     return matrix
 
 
-data = pd.DaraFrame(columns=['year', 'resolution', 'label', 'location_1', 'location_2', 'matrix_path']
+data = pd.DaraFrame(columns=['year', 'resolution', 'label', 'location_1', 'location_2', 'matrix_path'])
 ...
 # split datahere
 ...
 
 
-# first input wiht shape (m, n, c,)
+# first input with shape (m, n, c,)
 matrix_input = ('matrix', # name for model IO
                 ['matrix_path'], # this column_names and their values are sent to the your function for each sample in batch generation
                 load_and_preprocess_matrix # function to load processing the data, replace with string 'raw' to send values directly to the model IO
                )
-# second input wit shape (4,1,)
+# second input with shape (4,1,)
 metadata_input = ('metadata', ['year', 'resolution', 'location_1', 'location_2'], 'raw')
 # output (this model has only one output but you can define multiple outputs like inputs)
 output = ('metadata', ['label'], 'raw') # binarry classification
