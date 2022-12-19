@@ -1,4 +1,4 @@
-# custome Data-Generator in TF-Keras 
+# Custome Data-Generator for multiple-input multiple-output model in TF-keras
 Develop your own keras Data-Generator in TF-Keras to load and batch every data type with any format from a massive dataset in computers with limited main or GPU memory...
 mimo-keras is a package that enabled feeding model with any number and any type of inputs and outpuuts.
 
