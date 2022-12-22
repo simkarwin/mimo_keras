@@ -26,9 +26,9 @@ class MIMODataGenerator(keras.preprocessing.image.Iterator):
              (input_name, columns, transformer)
             - input_name: str, name of the Nth input
             - columns: list[str], feature_names belonging to the Nth input
-            - transformer: class that has .transform method (this method should accept dict of data in it's input amd
-            return ndarray with the same shape of the Nth input model). 'raw' value means send data directly to the
-            model without any changing or processing
+            - transformer: callable class or function that accepts two lists in it's input amd
+                return ndarray with the same shape of the Nth input model. To send the raw values directly to
+                the model without any additional processing, use word 'raw' instead of callable function.
 
         model_outputs: list[tuple], required
             like model_inputs but M tuple for model has M outputs
