@@ -1,2 +1,2 @@
-from preprocessing import MIMODataGenerator
-from utils import MIMODGFunctionInterface
+from .preprocessing import MIMODataGenerator
+from .utils import MIMODGFunctionInterface
