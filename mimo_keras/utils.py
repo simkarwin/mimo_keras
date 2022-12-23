@@ -2,6 +2,7 @@ from typing import List, Callable
 
 
 class MIMODGFunctionInterface:
+    """An Interface for functions. Sends only first variable to the function """
     def __init__(self, function: Callable, mapping_dict: dict, single_param_transferring: bool = True):
         self.function = function
         self.mapping_dict = mapping_dict
