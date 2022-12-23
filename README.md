@@ -31,9 +31,9 @@ data = pd.DaraFrame(columns=['year', 'resolution', 'label', 'location_1', 'locat
 
 
 # first input with shape (m, n, c,)
-matrix_input = ('matrix', # name for model IO
-                ['matrix_path'], # this column_names and their values are sent to the your function for each sample in batch generation
-                load_and_preprocess_matrix # function to load processing the data, replace with string 'raw' to send values directly to the model IO
+matrix_input = ('matrix', # Name of the model IO.
+                ['matrix_path'], # These column names and their values are sent to the your function for each sample in batch generation.
+                load_and_preprocess_matrix # A function or callable class to load data and preprocessing. Use 'raw' to send values to the model IO directly.
                )
 # second input with shape (4,1,)
 metadata_input = ('metadata', ['year', 'resolution', 'location_1', 'location_2'], 'raw')
