@@ -1,1 +1,2 @@
-from MIMOKeras import MIMODataGenerator, MIMODGFunctionInterface
+from preprocessing import MIMODataGenerator
+from utils import MIMODGFunctionInterface

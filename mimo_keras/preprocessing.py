@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 
-keras = tf.keras
+keras = tf.keras  # It is because of the pycharm bug. you can use 'import keras from TF' directly.
 
 
 class MIMODataGenerator(keras.preprocessing.image.Iterator):
@@ -108,7 +108,7 @@ class MIMODataGenerator(keras.preprocessing.image.Iterator):
             io_batch_data = np.array(io_batch_data)
             return io_batch_data
 
-        def _structure_data_values(structure):
+        def _structure_data_values(structure: dict):
             """Gathers data of all inputs or outputs
 
             Parameters
@@ -139,17 +139,3 @@ class MIMODataGenerator(keras.preprocessing.image.Iterator):
         with self.lock:
             index_array = next(self.index_generator)
         return self._get_batches_of_transformed_samples(index_array)
-
-
-class MIMODGFunctionInterface:
-    def __init__(self, function, mapping_dict, single_param_transferring=True):
-        self.function = function
-        self.mapping_dict = mapping_dict
-        self.single_param_transferring = single_param_transferring
-
-    def __call__(self, values, col_names):
-        params_dict = dict(zip(col_names, values))
-        if self.single_param_transferring:
-            return self.function(**{k: params_dict.get(v) for k, v in self.mapping_dict.items()})
-        else:
-            return self.function(**{k: params_dict.get(v) for k, v in self.mapping_dict.items()})
