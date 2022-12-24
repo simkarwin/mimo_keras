@@ -71,7 +71,7 @@ def load_user_history(feature_values, feature_names):
     ...
     return user_history
 
-def product_history(feature_values, feature_names):
+def load_product_history(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
     pid = parameters.get('product_id')
     ...
@@ -86,11 +86,11 @@ def get_user_product_score(feature_values, feature_names):
 data = pd.DaraFrame(columns=['sample_id', 'user_id', 'product_id', 'label'])
 
 # First input
-input_user = ('matrix', ['user_id'], load_user_history)
+input_user = ('user_history', ['user_id'], load_user_history)
 # Second input
-input_product = ('matrix', ['product_id'], load_product_history)
+input_product = ('product_history', ['product_id'], load_product_history)
 # Output
-output = ('matrix', ['user_id', 'product_id'], get_user_product_score)
+output = ('matrix', ['score', 'product_id'], get_user_product_score)
 
 train_generator = MIMODataGenerator(data_table = data_train
                                     model_inputs=[input_user, input_product],
@@ -112,24 +112,24 @@ def load_mri_scan(feature_values, feature_names):
 def load_pt_scan(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
     mri_path = parameters.get('image_path')
-    return normalize_image(cv.imread(re.replace(mri_path, 'mri', 'pt')))
+    return normalize_image(cv.imread(mri_path.replace('mri', 'pt')))
         
 def load_mask(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
     mri_path = parameters.get('image_path')
-    return binarize_image(cv.imread(re.replace(mri_path, 'mri', 'mask')))
+    return binarize_image(cv.imread(mri_path.replace('mri', 'mask')))
 
 
 data = pd.DaraFrame(columns=['sample_id', 'user_id', 'product_id', 'disease_type'])
 
 # First input
-input_mri = ('matrix', ['image_path'], load_mri_scan)
+input_mri = ('mri_scan', ['image_path'], load_mri_scan)
 # Second input
-input_pt = ('matrix', ['image_path'], load_pt_scan)
+input_pt = ('pt_scan', ['image_path'], load_pt_scan)
 # First Output
-output_mask = ('matrix', ['image_path'], load_mask)
+output_mask = ('mask', ['image_path'], load_mask)
 # Second Output
-output_disease = ('matrix', ['disease_type'], 'raw')
+output_disease = ('disease_type', ['disease_type'], 'raw')
 
 train_generator = MIMODataGenerator(data_table = data_train
                                     model_inputs=[input_mri, input_pt],
