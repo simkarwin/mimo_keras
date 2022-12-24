@@ -8,9 +8,9 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='mimo_keras',
     packages=['mimo_keras'],
-    version='0.1.10',
+    version='0.1.11',
     license='MIT',
-    description='Data generator for Keras multiple-input multiple-output models',
+    description='A DataGenerator for Keras multiple-input multiple-output models and massive datasets with any type of data',
     long_description=long_description,
     long_description_content_type='text/markdown',
     author='Ehsan Karimi',
