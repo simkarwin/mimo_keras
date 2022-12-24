@@ -2,7 +2,7 @@
 Develop your own keras Data-Generator in TF-Keras to load and batch every data type with any format from a massive dataset in computers with limited main or GPU memory... mimo-keras is a package that enables feeding models with any format and any number of inputs and outputs.
 
 MIMO-keras — Never use keras imagedatagenerator to load data in batch
-Do you ever use image_data_generator() or load_form_directory() to load and feed your deep model in keras? Of course, you do. mimo-keras makes data loader very simple even for multiple input/output models or data with formats that are not supported by default in keras.
+have you ever used image_data_generator() or load_form_directory() to load batch data and feed your deep model in keras? mimo-keras makes data loader quite simple and straightforward even for multiple input/output models or data with formats that are not supported by default in keras.
 
 #### mimo-keras is like image_data_generator().load_from_directory(), but better:
 
