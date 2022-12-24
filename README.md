@@ -59,7 +59,7 @@ model.fit(generator = train_generator,
           )
 ```
 
-for more complicated model you can use only sample_id to generate data foe each IO. for example:
+for more complicated model you can use only sample_id to generate data for each IO. for example to train a recommender system (DLRM) using a massive dataset:
 
 
 ```python
@@ -100,8 +100,7 @@ train_generator = MIMODataGenerator(data_table = data_train
                                     )
 ```
 
-example for multi-dimentional image processing model:
-
+example for multi-dimentional medical image processing model:
 
 ```python
 from mimo_keras import MIMODataGenerator
