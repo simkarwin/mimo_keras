@@ -90,7 +90,7 @@ input_user = ('user_history', ['user_id'], load_user_history)
 # Second input
 input_product = ('product_history', ['product_id'], load_product_history)
 # Output
-output = ('matrix', ['score', 'product_id'], get_user_product_score)
+output = ('score', ['user_id', 'product_id'], get_user_product_score)
 
 train_generator = MIMODataGenerator(data_table = data_train
                                     model_inputs=[input_user, input_product],
@@ -100,24 +100,25 @@ train_generator = MIMODataGenerator(data_table = data_train
                                     )
 ```
 
-example for multi-dimentional medical image processing model:
+example for loading .nifti file to train multi-dimentional medical image processing model:
 
 ```python
 from mimo_keras import MIMODataGenerator
+import nibabel as nib
 
 def load_mri_scan(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
-    return normalize_image(cv.imread(parameters.get('image_path')))
+    return normalize_image(nib.load(parameters.get('image_path')).get_fdata())
 
 def load_pt_scan(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
     mri_path = parameters.get('image_path')
-    return normalize_image(cv.imread(mri_path.replace('mri', 'pt')))
+    return normalize_image(nib.load(mri_path.replace('_mri_', '_pt_scan_')).get_fdata())
         
 def load_mask(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
     mri_path = parameters.get('image_path')
-    return binarize_image(cv.imread(mri_path.replace('mri', 'mask')))
+    return binarize_image(nib.load(mri_path.replace('_mri_', '_mask_')).get_fdata())
 
 
 data = pd.DaraFrame(columns=['sample_id', 'user_id', 'product_id', 'disease_type'])
