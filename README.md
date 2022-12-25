@@ -126,14 +126,14 @@ data = pd.DaraFrame(columns=['sample_id', 'image_path', 'disease_type'])
 # First input
 input_mri = ('mri_scan', ['image_path'], load_mri_scan)
 # Second input
-input_pt = ('pet_scan', ['image_path'], load_pet_scan)
+input_pet = ('pet_scan', ['image_path'], load_pet_scan)
 # First Output
 output_mask = ('mask', ['image_path'], load_mask)
 # Second Output
 output_disease = ('disease_type', ['disease_type'], 'raw')
 
 train_generator = MIMODataGenerator(data_table = data_train
-                                    model_inputs=[input_mri, input_pt],
+                                    model_inputs=[input_mri, input_pet],
                                     model_outputs=[output_mask, output_disease],
                                     shuffle=True,
                                     batch_size=batch_size
