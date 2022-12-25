@@ -110,10 +110,10 @@ def load_mri_scan(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
     return normalize_image(nib.load(parameters.get('image_path')).get_fdata())
 
-def load_pt_scan(feature_values, feature_names):
+def load_pet_scan(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
     mri_path = parameters.get('image_path')
-    return normalize_image(nib.load(mri_path.replace('_mri_', '_pt_scan_')).get_fdata())
+    return normalize_image(nib.load(mri_path.replace('_mri_', '_pet_scan_')).get_fdata())
         
 def load_mask(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
@@ -121,12 +121,12 @@ def load_mask(feature_values, feature_names):
     return binarize_image(nib.load(mri_path.replace('_mri_', '_mask_')).get_fdata())
 
 
-data = pd.DaraFrame(columns=['sample_id', 'user_id', 'product_id', 'disease_type'])
+data = pd.DaraFrame(columns=['sample_id', 'image_path', 'disease_type'])
 
 # First input
 input_mri = ('mri_scan', ['image_path'], load_mri_scan)
 # Second input
-input_pt = ('pt_scan', ['image_path'], load_pt_scan)
+input_pt = ('pet_scan', ['image_path'], load_pet_scan)
 # First Output
 output_mask = ('mask', ['image_path'], load_mask)
 # Second Output
