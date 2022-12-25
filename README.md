@@ -144,7 +144,6 @@ Calculating the metric to evaluate the model:
 
 ```python
 from mimo_keras import MIMODataGenerator
-import nibabel as nib
 
 .
 .
