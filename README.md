@@ -7,7 +7,7 @@ Have you ever used ImageDataGenerator(), load_form_directory(), or load_from_dat
 
 ## mimo-keras is like ImageDataGenerator().load_from_directory(), but better:
 
-1. Supports pandas, images and other formats in a generator without needing to define a new data generator for each input or output.
+1. Supports pandas, images and other formats in one generator without needing to define a new data generator for each input or output.
 2. It can load data in every format.
 3. You can write your own data loader function.
 4. You can use your custom preprocessing pipeline without limitation.
