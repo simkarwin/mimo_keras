@@ -161,7 +161,7 @@ test_generaetor = MIMODataGenerator(data_table = data_test
                                       )
 y_pred = model.predict(test_generator)
 y_target = test_generator.data_table.price.to_list()
-mae = mean_absulute_error(y_target, y_pred)
+mae = mean_absolute_error(y_target, y_pred)
 ```
 
 #large_dataset #massive_dataset #MRI_keras #data_generator_for_medical_images #fMRI_keras #graph_neural_networks #deep_learning_with_limited_GPU_memory #TensorFlow
