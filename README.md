@@ -160,7 +160,7 @@ test_generaetor = MIMODataGenerator(data_table = data_test
                                       batch_size=batch_size
                                       )
 y_pred = model.predict(test_generator)
-y_target = test_generator.data_table.price
+y_target = test_generator.data_table.price.to_list()
 mae = mean_absulute_error(y_target, y_pred)
 ```
 
