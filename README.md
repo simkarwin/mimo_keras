@@ -40,18 +40,18 @@ matrix_input = ('matrix', # Name of the model IO.
 metadata_input = ('metadata', ['year', 'resolution', 'location_1', 'location_2'], 'raw')
 # output (this model has only one output but you can define multiple outputs like inputs)
 output = ('metadata', ['label'], 'raw') # binarry classification
-train_generator = MIMODataGenerator(data_table = data_train
+train_generator = MIMODataGenerator(data_table=data_train
                                     model_inputs=[matrix_input, metadata_input],
                                     model_outputs=[output],
                                     shuffle=True,
-                                    batch_size=batch_size
+                                    batch_size=BATCH_SIZE
                                     )
 
-validation_generaetor = MIMODataGenerator(data_table = data_validation
+validation_generaetor = MIMODataGenerator(data_table=data_validation
                                           model_inputs=[matrix_input, metadata_input],
                                           model_outputs=[output],
                                           shuffle=False,
-                                          batch_size=batch_size
+                                          batch_size=BATCH_SIZE
                                           )
 
 model.fit(generator = train_generator,
@@ -93,11 +93,11 @@ input_product = ('product_history', ['product_id'], load_product_history)
 # Output
 output = ('score', ['user_id', 'product_id'], get_user_product_score)
 
-train_generator = MIMODataGenerator(data_table = data_train
+train_generator = MIMODataGenerator(data_table=data_train
                                     model_inputs=[input_user, input_product],
                                     model_outputs=[output],
                                     shuffle=True,
-                                    batch_size=batch_size
+                                    batch_size=BATCH_SIZE
                                     )
 ```
 
@@ -133,11 +133,11 @@ output_mask = ('mask', ['image_path'], load_mask)
 # Second Output
 output_disease = ('disease_type', ['disease_type'], 'raw')
 
-train_generator = MIMODataGenerator(data_table = data_train
+train_generator = MIMODataGenerator(data_table=data_train
                                     model_inputs=[input_mri, input_pet],
                                     model_outputs=[output_mask, output_disease],
                                     shuffle=True,
-                                    batch_size=batch_size
+                                    batch_size=BATCH_SIZE
                                     )
 ```
 
@@ -153,11 +153,11 @@ from mimo_keras import MIMODataGenerator
 input = ('input_data', ['s_room', 'n_bedroom', 's_total', 'city', 'floor', 'location'], 'raw')
 output = ('input_data', ['price'], 'raw')
 
-test_generaetor = MIMODataGenerator(data_table = data_test
+test_generaetor = MIMODataGenerator(data_table=data_test
                                       model_inputs=[input],
                                       model_outputs=[output],
                                       shuffle=False,
-                                      batch_size=batch_size
+                                      batch_size=BATCH_SIZE
                                       )
 y_pred = model.predict(test_generator)
 y_target = test_generator.data_table.price.to_list()
