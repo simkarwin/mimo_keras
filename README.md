@@ -1,12 +1,13 @@
-#  Custom Data-Generator for multiple-input multiple-output models in TF-keras
-Develop your own keras Data-Generator in TF-Keras to load and batch every data type with any format from a massive dataset in computers with limited main or GPU memory... mimo-keras is a package that enables feeding models with any format and any number of inputs and outputs.
+#  Custom Data-Generator for multiple-input multiple-output models in TF-Keras
+Develop your own Keras DataGenerator in TF-Keras to load and batch every data type with any format from a massive dataset in computers with limited main or GPU memory... mimo-keras is a package that enables feeding models with any format and any number of inputs and outputs.
 
-MIMO-keras — Never use keras ImageDataGenerator to load data in batch
-have you ever used ImageDataGenerator(), load_form_directory(), or load_from_dataframe() to load batch data and feed your deep model in keras? mimo-keras makes data loader quite simple and straightforward even for multiple input/output models or data with formats that are not supported by default in keras.
+mimo-keras — Never use Keras ImageDataGenerator to load data in batch
+----------------------------------------------------------------------
+Have you ever used ImageDataGenerator(), load_form_directory(), or load_from_dataframe() to load batch data and feed your deep model in Keras? mimo-keras makes the data loader quite simple and straightforward even for multiple input/output models or data with formats that are not supported by default in Keras.
 
 ## mimo-keras is like ImageDataGenerator().load_from_directory(), but better:
 
-1. supports pandas, images and other formats in a generator without needing to define a new data generator for each input or output.
+1. Supports pandas, images and other formats in a generator without needing to define a new data generator for each input or output.
 2. It can load data in every format.
 3. You can write your own data loader function.
 4. You can use your custom preprocessing pipeline without limitation.
