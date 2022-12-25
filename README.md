@@ -140,4 +140,28 @@ train_generator = MIMODataGenerator(data_table = data_train
                                     )
 ```
 
-#large_dataset #massive_dataset #MRI_keras #data_generator_for_medical_images #fMRI_keras #graph_neural_networrks #deep_learning_with_limited_GPU_memory #TensorFlow
+Calculating the metric to evaluate the model:
+
+```python
+from mimo_keras import MIMODataGenerator
+import nibabel as nib
+
+.
+.
+.
+
+input = ('input_data', ['s_room', 'n_bedroom', 's_totatl', 'city', 'floor', 'location'], 'raw')
+output = ('input_data', ['price'], 'raw')
+
+test_generaetor = MIMODataGenerator(data_table = data_test
+                                      model_inputs=[input],
+                                      model_outputs=[output],
+                                      shuffle=False,
+                                      batch_size=batch_size
+                                      )
+y_pred = model.predict(test_generator)
+y_target = test_generator.data_table.price
+mae = mean_absulute_error(y_target, y_pred)
+```
+
+#large_dataset #massive_dataset #MRI_keras #data_generator_for_medical_images #fMRI_keras #graph_neural_networks #deep_learning_with_limited_GPU_memory #TensorFlow
