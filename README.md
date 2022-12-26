@@ -151,16 +151,16 @@ from mimo_keras import MIMODataGenerator
 .
 
 input = ('input_data', ['s_room', 'n_bedroom', 's_total', 'city', 'floor', 'location'], 'raw')
-output = ('input_data', ['price'], 'raw')
+output = ('output_data', ['price'], 'raw')
 
 test_generaetor = MIMODataGenerator(data_table=data_test
-                                      model_inputs=[input],
-                                      model_outputs=[output],
-                                      shuffle=False,
-                                      batch_size=BATCH_SIZE
-                                      )
+                                    model_inputs=[input],
+                                    model_outputs=[output],
+                                    shuffle=False,
+                                    batch_size=BATCH_SIZE
+                                    )
 y_pred = model.predict(test_generator)
-y_target = test_generator.get_io_data_values_by_name('label', 'all')
+y_target = test_generator.get_io_data_values_by_name('output_data', 'all')
 # or y_target = test_generator.data_table.price.to_list()
 
 mae = mean_absolute_error(y_target, y_pred)
