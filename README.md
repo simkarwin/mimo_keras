@@ -3,14 +3,16 @@ Develop your own Keras DataGenerator in TF-Keras to load and batch every data ty
 
 mimo-keras — One Keras DataGenerator for all model Inputs and Ouputs 
 ----------------------------------------------------------------------
-Have you ever used ImageDataGenerator(), load_form_directory(), or load_from_dataframe() to load batch data and feed your deep model in Keras? mimo-keras makes the data loader quite simple and straightforward even for multiple input/output models or data with formats that are not supported by default in Keras.
+Have you ever used ImageDataGenerator(), load_form_directory(), or load_from_dataframe() to load batch data and feed your deep model in Keras? mimo-keras makes the data loader quite simple and straightforward even for multiple input/output models
 
-## mimo-keras is like ImageDataGenerator().load_from_directory(), but better:
+## mimo-keras is a more general vrsion of ImageDataGenerator().load_from_dictionary():
 
-1. Supports pandas, images and other formats in one generator without needing to define a new data generator for each input or output.
-2. It can load data in every format.
+
+
+1. Supports all data with formats that are not supported by default in Keras. Because, yourself define data loader function.
+2. Unlike Keras DataGenerator, you define only one data generator for all inputs and outputs.
 3. You can write your own data loader function.
-4. You can use your custom preprocessing pipeline without limitation.
+4. You can use your custom preprocessing pipeline per IO indepently without any limitation.
 
 
 ```python
