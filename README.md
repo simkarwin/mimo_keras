@@ -5,7 +5,7 @@ mimo-keras — One Keras DataGenerator for all model Inputs and Ouputs
 ----------------------------------------------------------------------
 Have you ever used ImageDataGenerator(), load_form_directory(), or load_from_dataframe() to load batch data and feed your deep model in Keras? mimo-keras makes the data loader quite simple and straightforward even for multiple input/output models
 
-## mimo-keras is a more general vrsion of ImageDataGenerator().load_from_dictionary():
+## mimo-keras is a more general version of ImageDataGenerator().load_from_dictionary():
 
 
 
