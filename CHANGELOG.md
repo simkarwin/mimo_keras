@@ -1,5 +1,5 @@
 ================================================================================
- v0.1.12
+ v0.1.13
 ================================================================================
 Added: get_io_data_values_by_name() method added to MIMODataGenerator
 Changed: now data are loaded using multiple threads to speed up the data loading.
