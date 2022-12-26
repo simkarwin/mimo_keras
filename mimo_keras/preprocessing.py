@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List, Tuple, Union, Optional
 
 import numpy as np
@@ -150,3 +152,18 @@ class MIMODataGenerator(keras.preprocessing.image.Iterator):
         with self.lock:
             index_array = next(self.index_generator)
         return self._get_batches_of_transformed_samples(index_array)
+
+    def get_io_data_values_by_name(self, io_name: str, indexes: str | List[int] = 'all'):
+        if not isinstance(io_name, str):
+            raise TypeError("io_name must be string...")
+        if isinstance(indexes, str) and indexes == 'all':
+            indexes = [i for i in range(self.n)]
+        elif not isinstance(indexes, list):
+            raise TypeError("indexes must be a list of int or 'all'...")
+
+        if io_name in list(self.structure_inputs.keys()):
+            return self._get_io_data_values(self.structure_inputs[io_name], indexes)
+        elif io_name in list(self.structure_outputs.keys()):
+            return self._get_io_data_values(self.structure_outputs[io_name], indexes)
+        else:
+            raise ValueError(f"Key error: {io_name} not founded in input and ouput names...")
