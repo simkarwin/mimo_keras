@@ -8,19 +8,19 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='mimo_keras',
     packages=['mimo_keras'],
-    version='0.1.13',
+    version='0.1.16',
     license='MIT',
     description='A DataGenerator for Keras multiple-input multiple-output models and massive datasets with any type of data',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    author='Ehsan Karimi',
-    author_email='ehsankb91@gmail.com',
-    url='https://github.com/simonkarimi/mimo_keras',
-    download_url='https://github.com/simonkarimi/mimo_keras/archive/V0.1.5.tar.gz',
+    author='Simkarwin',
+    author_email='simkarwin@gmail.com',
+    url='https://github.com/simkarwin/mimo_keras',
+    download_url='https://github.com/simkarwin/mimo_keras/archive/V0.1.16.tar.gz',
     keywords=['keras data generator', 'data generator', 'multi-input multi-output model', 'medical image processing'],
     install_requires=[
-        'numpy>=1.19.4',
-        'pandas>=1.1.0',
-        'keras>=2.5.0'
+        'numpy>=1.0.0',
+        'pandas>=1.0.0',
+        'keras>=2.0.0'
     ],
 )

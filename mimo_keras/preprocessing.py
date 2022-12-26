@@ -7,9 +7,7 @@ import pandas as pd
 
 import multiprocessing
 
-import tensorflow as tf
-
-keras = tf.keras  # It is because of the pycharm bug. you can use 'import keras from TF' directly.
+from tensorflow import keras
 
 
 class MIMODataGenerator(keras.preprocessing.image.Iterator):
