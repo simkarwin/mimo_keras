@@ -2,6 +2,9 @@ from typing import List, Tuple, Union, Optional
 
 import numpy as np
 import pandas as pd
+
+import multiprocessing
+
 import tensorflow as tf
 
 keras = tf.keras  # It is because of the pycharm bug. you can use 'import keras from TF' directly.
@@ -75,63 +78,71 @@ class MIMODataGenerator(keras.preprocessing.image.Iterator):
 
         return structure
 
+    @staticmethod
+    def _get_io_data_values(io_structure: dict, index_array) -> np.numarray:
+        """Gathers data of an IO due to its structure
+
+        Parameters
+        ----------
+        io_structure: dict, required
+            subdict of self.structure_inputs or self.structure_outputs
+
+        Returns
+        -------
+        io_batch_data: ndarray
+            data belonging to an IO of inputs or outputs
+
+        """
+        io_batch_data = []
+        results = []
+
+        pool = multiprocessing.pool.ThreadPool(16)
+
+        for i in index_array:
+            col_names = io_structure['columns']
+            col_values = io_structure['data_value'][i]
+            results.append(pool.apply_async(io_structure['function'], (col_values, col_names,)))
+        for res in results:
+            x = res.get()
+            if isinstance(x, (np.ndarray, np.integer, np.float)):
+                if len(np.shape(x)) == 1 and np.shape(x)[0] == 1:
+                    x = x[0]
+                io_batch_data.append(x)
+            else:
+                raise TypeError(f"The type of the io data value must be ndarray or number, but received {type(x)}! :D")
+
+        pool.close()
+        pool.join()
+
+        io_batch_data = np.array(io_batch_data)
+        return io_batch_data
+
+    def _structure_data_values(self, structure: dict, index_array):
+        """Gathers data of all inputs or outputs
+
+        Parameters
+        ----------
+        structure: dict, required
+            Its value could self.structure_inputs or self.structure_outputs
+
+        Returns
+        -------
+        batch_data_structure: ndarray
+            Model input or output values belonging to the self.structure_inputs or self.structure_outputs
+
+        """
+        batch_data_structure = []
+        for io_name, io_structure in structure.items():
+            batch_data_structure.append(self._get_io_data_values(io_structure, index_array))
+        if len(batch_data_structure) == 1:
+            return batch_data_structure[0]
+        else:
+            return batch_data_structure
+
     def _get_batches_of_transformed_samples(self, index_array):
 
-        def _get_io_data_values(io_structure: dict) -> np.numarray:
-            """Gathers data of an IO
-
-            Parameters
-            ----------
-            io_structure: dict, required
-                subdict of self.structure_inputs or self.structure_outputs
-
-            Returns
-            -------
-            io_batch_data: ndarray
-                data belonging to an IO of inputs or outputs
-
-            """
-            io_batch_data = []
-            for i in index_array:
-
-                col_names = io_structure['columns']
-                col_values = io_structure['data_value'][i]
-                x = io_structure['function'](col_values, col_names)
-
-                if isinstance(x, (np.ndarray, np.integer, np.float)):
-                    if len(np.shape(x)) == 1 and np.shape(x)[0] == 1:
-                        x = x[0]
-                    io_batch_data.append(x)
-                else:
-                    print(type(x), x)
-                    raise TypeError("The type of the io data value must be ndarray or number...! :D")
-            io_batch_data = np.array(io_batch_data)
-            return io_batch_data
-
-        def _structure_data_values(structure: dict):
-            """Gathers data of all inputs or outputs
-
-            Parameters
-            ----------
-            structure: dict, required
-                Its value could self.structure_inputs or self.structure_outputs
-
-            Returns
-            -------
-            batch_data_structure: ndarray
-                Model input or output values belonging to the self.structure_inputs or self.structure_outputs
-
-            """
-            batch_data_structure = []
-            for io_name, io_structure in structure.items():
-                batch_data_structure.append(_get_io_data_values(io_structure))
-            if len(batch_data_structure) == 1:
-                return batch_data_structure[0]
-            else:
-                return batch_data_structure
-
-        batch_data_inputs = _structure_data_values(self.structure_inputs)
-        batch_data_outputs = _structure_data_values(self.structure_outputs)
+        batch_data_inputs = self._structure_data_values(self.structure_inputs, index_array)
+        batch_data_outputs = self._structure_data_values(self.structure_outputs, index_array)
 
         return batch_data_inputs, batch_data_outputs
 
