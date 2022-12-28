@@ -9,7 +9,7 @@ Have you ever used ImageDataGenerator(), load_form_directory(), or load_from_dat
 
 
 
-## mimo-keras is a more general version of ImageDataGenerator().load_from_dictionary():
+## mimo-keras is a more general version of ImageDataGenerator().load_from_dataframe():
 
 
 
