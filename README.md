@@ -52,7 +52,7 @@ matrix_input = ('matrix', # Name of the model IO.
 # second input with shape (4,1,)
 metadata_input = ('metadata', ['year', 'resolution', 'location_1', 'location_2'], 'raw')
 # output (this model has only one output but you can define multiple outputs like inputs)
-output = ('metadata', ['label'], 'raw') # binarry classification
+output = ('target', ['label'], 'raw') # binarry classification
 train_generator = MIMODataGenerator(data_table=data_train
                                     model_inputs=[matrix_input, metadata_input],
                                     model_outputs=[output],
