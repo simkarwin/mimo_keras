@@ -18,7 +18,14 @@ Have you ever used ImageDataGenerator(), load_form_directory(), or load_from_dat
 3. You can write your own data loader function.
 4. You can use your custom preprocessing pipeline per IO indepently without any limitation.
 
+Installation
+------------
+```bash
+pip install mimo-keras
+```
 
+Usage
+-----
 ```python
 from mimo_keras import MIMODataGenerator
 
