@@ -9,14 +9,15 @@ Have you ever used ImageDataGenerator(), load_form_directory(), or load_from_dat
 
 
 
-## mimo-keras is a more general version of ImageDataGenerator().load_from_dataframe():
+## mimo-keras is a more general version of ImageDataGenerator().load_from_dataframe() and ImageDataGenerator().load_from_directory():
 
 
 
-1. Supports all data with formats that are not supported by default in Keras. Because, yourself define data loader function.
+1. Supports all data formats that are not supported by default in Keras.
 2. Unlike Keras DataGenerator, you define only one data generator for all inputs and outputs.
-3. You can write your own data loader function.
-4. You can use your custom preprocessing pipeline per IO indepently without any limitation.
+3. You can write your own data loader function due to data format.
+4. You can use your custom preprocessing pipeline per IO indepently without any limitation. For this pupose, fit your callable class and send it as data loader or preprocessor to generator.
+5. You can load data files (images, .numpy, .dicom, .nifti, ...) directly, without needing to copy them to the folders with predefined structures before training.
 
 Installation
 ------------
@@ -82,27 +83,33 @@ from mimo_keras import MIMODataGenerator
 def load_user_history(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
     uid = parameters.get('user_id')
-    ...
+    .
+    .
+    .
     return user_history
 
 def load_product_history(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
     pid = parameters.get('product_id')
-    ...
+    .
+    .
+    .
     return product_history
     
 def get_user_product_score(feature_values, feature_names):
     parameters = dict(zip(feature_names, feature_values))
     uid, pid = parameters.get('user_id'), parameters.get('product_id') 
-    ...
+    .
+    .
+    .
     return user_product_score
 
 data = pd.DaraFrame(columns=['sample_id', 'user_id', 'product_id', 'label'])
 
 # First input
-input_user = ('user_history', ['user_id'], load_user_history)
+input_user = ('user_data', ['user_id'], load_user_history)
 # Second input
-input_product = ('product_history', ['product_id'], load_product_history)
+input_product = ('product_data', ['product_id'], load_product_history)
 # Output
 output = ('score', ['user_id', 'product_id'], get_user_product_score)
 
@@ -164,7 +171,7 @@ from mimo_keras import MIMODataGenerator
 .
 
 input = ('input_data', ['s_room', 'n_bedroom', 's_total', 'city', 'floor', 'location'], 'raw')
-output = ('output_data', ['price'], 'raw')
+output = ('target_price', ['price'], 'raw')
 
 test_generaetor = MIMODataGenerator(data_table=data_test
                                     model_inputs=[input],
@@ -173,10 +180,11 @@ test_generaetor = MIMODataGenerator(data_table=data_test
                                     batch_size=BATCH_SIZE
                                     )
 y_pred = model.predict(test_generator)
-y_target = test_generator.get_io_data_values_by_name('output_data', 'all')
+y_target = test_generator.get_io_data_values_by_name('target_price', 'all')
 # or y_target = test_generator.data_table.price.to_list()
 
 mae = mean_absolute_error(y_target, y_pred)
 ```
+If it was useful, please star it :D
 
 #large_dataset #massive_dataset #MRI_keras #data_generator_for_medical_images #fMRI_keras #graph_neural_networks #deep_learning_with_limited_GPU_memory #TensorFlow
