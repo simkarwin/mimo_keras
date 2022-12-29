@@ -52,13 +52,20 @@ class MIMODataGenerator(keras.preprocessing.image.Iterator):
 
         super().__init__(self.nb_samples, batch_size, shuffle, seed)
 
-    def _get_cols_to_function_mapping_dict(self, mapping_list: List[Tuple[str, List[str], Union[callable, str]]]):
+    def _get_cols_to_function_mapping_dict(self, mapping_list: List[Tuple[str, List[str]] | Tuple[str, List[str], Union[callable, str]]]):
 
         if len(mapping_list) < 1:
             raise ValueError('The model must have at least one input and one output...! :D')
 
         structure = dict()
-        for model_io_name, columns, function in mapping_list:
+        for mapping in mapping_list:
+            if len(mapping) == 2:
+                model_io_name, columns, function = (*mapping, 'raw')
+            elif len(mapping) == 3:
+                model_io_name, columns, function = mapping
+            else:
+                raise ValueError("The definition of each IO structure must have 2 or 3 elements")
+
             structure[model_io_name] = dict()
 
             if callable(function):
