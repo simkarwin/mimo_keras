@@ -1,4 +1,5 @@
 [![Latest PyPI version](https://img.shields.io/pypi/v/mimo-keras.svg)](https://pypi.python.org/pypi/mimo-keras)
+[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
 
 #  Custom Data-Generator for multiple-input multiple-output models in TF-Keras
 Develop your own Keras DataGenerator in TF-Keras to load and batch every data type with any format from a massive dataset in computers with limited main or GPU memory... mimo-keras is a package that enables feeding models with any format and any number of inputs and outputs.
