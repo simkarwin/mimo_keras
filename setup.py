@@ -17,7 +17,7 @@ setup(
     author='Simkarwin',
     author_email='simkarwin@gmail.com',
     url='https://github.com/simkarwin/mimo_keras',
-    download_url= f'https://github.com/simkarwin/mimo_keras/archive/refs/tags/v{VERSION}.tar.gz',
+    download_url= f'https://github.com/simkarwin/mimo_keras/archive/refs/tags/v{VERSION}.zip',
     keywords=['keras data generator', 'data generator', 'multi-input multi-output model', 'medical image processing'],
     install_requires=[
         'numpy>=1.0.0',
